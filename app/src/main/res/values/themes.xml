@@ -5,5 +5,14 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.CustomClock" parent="Base.Theme.CustomClock" />
+    <style name="Theme.CustomClock" parent="Base.Theme.CustomClock">
+        <item name="ClockViewStyle">@style/GlobalViewClockStyle</item>
+    </style>
+
+    <style name="DefaultClockViewStyle">
+        <item name="borderColor">#000000</item>
+        <item name="backgroundClockColor">#ffffff</item>
+    </style>
+
+    <style name="GlobalViewClockStyle" parent="DefaultClockViewStyle"/>
 </resources>
