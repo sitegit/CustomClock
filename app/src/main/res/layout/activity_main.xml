@@ -10,6 +10,13 @@
         android:id="@+id/clockView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:hourHandColor="#DF1313"/>
+        app:clockRingWidth="10dp"
+        app:defaultLength="10dp"
+        app:defaultWidth="2dp"
+        app:specialLength="15dp"
+        app:specialWidth="4dp"
+        app:hourHandWidth="6dp"
+        app:minuteHandWidth="4dp"
+        app:secondHandWidth="2dp"/>
 
 </FrameLayout>

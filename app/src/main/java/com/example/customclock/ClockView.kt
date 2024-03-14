@@ -8,6 +8,7 @@ import android.graphics.Rect
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
+import java.util.Calendar
 import kotlin.properties.Delegates
 
 class ClockView(
@@ -42,6 +43,8 @@ class ClockView(
     private lateinit var circlePaint: Paint
     private lateinit var pointerPaint: Paint
     private lateinit var numPaint: Paint
+
+    private val calendar = Calendar.getInstance()
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, R.style.DefaultClockViewStyle)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, R.attr.ClockViewStyle)
@@ -113,8 +116,6 @@ class ClockView(
         val width = getMeasureSize(true, widthMeasureSpec)
         val height = getMeasureSize(false, heightMeasureSpec)
         setMeasuredDimension(width, height)
-
-        Log.d("ClockView", "onMeasure: width = $width, height = $height")
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -144,7 +145,8 @@ class ClockView(
         canvas.translate(centerX, centerY)
         drawCircle(canvas)
         drawNums(canvas)
-        drawPointer(canvas)
+        getCurrentTime(canvas)
+        invalidate()
     }
 
     private fun drawCircle(canvas: Canvas) {
@@ -185,47 +187,60 @@ class ClockView(
         }
     }
 
-    private fun drawPointer(canvas: Canvas) {
+    private fun getCurrentTime(canvas: Canvas) {
+        calendar.timeInMillis = System.currentTimeMillis()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minutes = calendar.get(Calendar.MINUTE)
+        val second = calendar.get(Calendar.SECOND)
+
+        val hourDegrees = (hour + minutes / 60f) * 30f
+        val minuteDegrees = minutes * 6f
+        val secondDegrees = second * 6f
+
+        drawPointer(canvas, hourDegrees, minuteDegrees, secondDegrees)
+    }
+
+    private fun drawPointer(canvas: Canvas, hourDegrees: Float, minuteDegrees: Float, secondDegrees: Float) {
         canvas.save()
         pointerPaint.color = hourHandColor
         pointerPaint.strokeWidth = hourHandWidth
-        canvas.rotate(1f, 0f, 0f)
-        canvas.drawLine(0f, -20f, 0f, clockRadius * 0.45f, pointerPaint)
+        canvas.rotate(hourDegrees, 0f, 0f)
+        canvas.drawLine(0f, 20f, 0f, -clockRadius * 0.45f, pointerPaint)
         canvas.restore()
 
         canvas.save()
         pointerPaint.color = minuteHandColor
         pointerPaint.strokeWidth = minuteHandWidth
-        canvas.rotate(10f, 0f, 0f)
-        canvas.drawLine(0f, -20f, 0f, clockRadius * 0.6f, pointerPaint)
+        canvas.rotate(minuteDegrees, 0f, 0f)
+        canvas.drawLine(0f, 20f, 0f, -clockRadius * 0.6f, pointerPaint)
         canvas.restore()
 
         canvas.save()
         pointerPaint.color = secondHandColor
         pointerPaint.strokeWidth = secondHandWidth
-        canvas.rotate(30f, 0f, 0f)
-        canvas.drawLine(0f, -40f, 0f, clockRadius * 0.75f, pointerPaint)
+        canvas.rotate(secondDegrees, 0f, 0f)
+        canvas.drawLine(0f, 40f, 0f, -clockRadius * 0.75f, pointerPaint)
         canvas.restore()
 
         pointerPaint.color = secondHandColor
         canvas.drawCircle(0f, 0f, hourHandWidth / 2, pointerPaint)
-    }
+}
 
-    companion object {
-        const val BACKGROUND_COLOR = Color.WHITE
-        const val BORDER_COLOR = Color.BLACK
-        const val HOUR_HAND_COLOR = Color.BLACK
-        const val MINUTE_HAND_COLOR = Color.BLACK
-        const val SECOND_HAND_COLOR = Color.RED
-        const val NUMBER_COLOR = Color.BLACK
+companion object {
+const val BACKGROUND_COLOR = Color.WHITE
+const val BORDER_COLOR = Color.BLACK
+const val HOUR_HAND_COLOR = Color.BLACK
+const val MINUTE_HAND_COLOR = Color.BLACK
+const val SECOND_HAND_COLOR = Color.RED
+const val NUMBER_COLOR = Color.BLACK
 
-        const val CLOCK_RING_WIDTH = 15f
-        const val DEFAULT_WIDTH = 3f
-        const val SPECIAL_WIDTH = 5f
-        const val DEFAULT_LENGTH = 20f
-        const val SPECIAL_LENGTH = 30f
-        const val HOUR_HAND_WIDTH = 5f
-        const val MINUTE_HAND_WIDTH = 3f
-        const val SECOND_HAND_WIDTH = 2f
-    }
+const val CLOCK_RING_WIDTH = 15f
+const val DEFAULT_WIDTH = 3f
+const val SPECIAL_WIDTH = 5f
+const val DEFAULT_LENGTH = 20f
+const val SPECIAL_LENGTH = 30f
+const val HOUR_HAND_WIDTH = 5f
+const val MINUTE_HAND_WIDTH = 3f
+const val SECOND_HAND_WIDTH = 2f
+}
 }
