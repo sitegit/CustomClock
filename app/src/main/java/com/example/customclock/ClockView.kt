@@ -4,7 +4,9 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Rect
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import kotlin.properties.Delegates
 
@@ -111,6 +113,8 @@ class ClockView(
         val width = getMeasureSize(true, widthMeasureSpec)
         val height = getMeasureSize(false, heightMeasureSpec)
         setMeasuredDimension(width, height)
+
+        Log.d("ClockView", "onMeasure: width = $width, height = $height")
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -124,8 +128,7 @@ class ClockView(
 
     private fun getMeasureSize(isWidth: Boolean, measureSpec: Int): Int {
         val specSize = MeasureSpec.getSize(measureSpec)
-
-        return when (MeasureSpec.getMode(measureSpec)) {
+        val size = when (MeasureSpec.getMode(measureSpec)) {
             MeasureSpec.UNSPECIFIED ->
                 if (isWidth) suggestedMinimumWidth else suggestedMinimumHeight
             MeasureSpec.AT_MOST ->
@@ -133,12 +136,15 @@ class ClockView(
             MeasureSpec.EXACTLY -> specSize
             else -> specSize
         }
+        return size
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvas.translate(centerX, centerY)
         drawCircle(canvas)
+        drawNums(canvas)
+        drawPointer(canvas)
     }
 
     private fun drawCircle(canvas: Canvas) {
@@ -146,6 +152,7 @@ class ClockView(
         circlePaint.color = borderColor
 
         canvas.drawCircle(0f, 0f, clockRadius, circlePaint)
+
         for (i in 0 until 60) {
             if (i % 5 == 0) {
                 circlePaint.strokeWidth = specialWidth
@@ -160,6 +167,50 @@ class ClockView(
         }
     }
 
+    private fun drawNums(canvas: Canvas) {
+        for (i in 0 until 12) {
+            canvas.save()
+            val textBound = Rect()
+            canvas.translate(0f, -clockRadius + specialLength + defaultLength + clockRingWidth)
+            val text = if (i == 0) "12" else i.toString()
+            numPaint.getTextBounds(text, 0, text.length, textBound)
+
+            if (i != 0) {
+                canvas.rotate(-i * 30f)
+            }
+
+            canvas.drawText(text, -textBound.width() / 2f, textBound.height() / 2f, numPaint)
+            canvas.restore()
+            canvas.rotate(30f)
+        }
+    }
+
+    private fun drawPointer(canvas: Canvas) {
+        canvas.save()
+        pointerPaint.color = hourHandColor
+        pointerPaint.strokeWidth = hourHandWidth
+        canvas.rotate(1f, 0f, 0f)
+        canvas.drawLine(0f, -20f, 0f, clockRadius * 0.45f, pointerPaint)
+        canvas.restore()
+
+        canvas.save()
+        pointerPaint.color = minuteHandColor
+        pointerPaint.strokeWidth = minuteHandWidth
+        canvas.rotate(10f, 0f, 0f)
+        canvas.drawLine(0f, -20f, 0f, clockRadius * 0.6f, pointerPaint)
+        canvas.restore()
+
+        canvas.save()
+        pointerPaint.color = secondHandColor
+        pointerPaint.strokeWidth = secondHandWidth
+        canvas.rotate(30f, 0f, 0f)
+        canvas.drawLine(0f, -40f, 0f, clockRadius * 0.75f, pointerPaint)
+        canvas.restore()
+
+        pointerPaint.color = secondHandColor
+        canvas.drawCircle(0f, 0f, hourHandWidth / 2, pointerPaint)
+    }
+
     companion object {
         const val BACKGROUND_COLOR = Color.WHITE
         const val BORDER_COLOR = Color.BLACK
@@ -168,11 +219,11 @@ class ClockView(
         const val SECOND_HAND_COLOR = Color.RED
         const val NUMBER_COLOR = Color.BLACK
 
-        const val CLOCK_RING_WIDTH = 5f
-        const val DEFAULT_WIDTH = 1f
-        const val DEFAULT_LENGTH = 1f
-        const val SPECIAL_WIDTH = 1f
-        const val SPECIAL_LENGTH = 1f
+        const val CLOCK_RING_WIDTH = 15f
+        const val DEFAULT_WIDTH = 3f
+        const val SPECIAL_WIDTH = 5f
+        const val DEFAULT_LENGTH = 20f
+        const val SPECIAL_LENGTH = 30f
         const val HOUR_HAND_WIDTH = 5f
         const val MINUTE_HAND_WIDTH = 3f
         const val SECOND_HAND_WIDTH = 2f

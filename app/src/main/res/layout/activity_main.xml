@@ -9,6 +9,7 @@
     <com.example.customclock.ClockView
         android:id="@+id/clockView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:hourHandColor="#DF1313"/>
 
 </FrameLayout>
