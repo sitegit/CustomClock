@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Custom Clock</string>
+
+    <string name="next">Далее</string>
+    <string name="new_york">Нью-Йорк</string>
+    <string name="moscow">Москва</string>
+    <string name="tokyo">Токио</string>
+    <string name="berlin">Берлин</string>
 </resources>

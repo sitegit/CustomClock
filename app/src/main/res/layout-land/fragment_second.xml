@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SecondFragment">
+
+    <com.example.customclock.ClockView
+        android:id="@+id/clockView1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        app:backgroundClockColor="@color/white"
+        app:borderColor="@color/red"
+        app:clockRingWidth="4dp"
+        app:hourHandWidth="5dp"
+        app:hourLineLength="10dp"
+        app:hourLineWidth="2dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toEndOf="@+id/tvClock1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/clockView3"
+        app:minuteHandWidth="3dp"
+        app:minuteLineLength="6dp"
+        app:minuteLineWidth="2dp"
+        app:numberSize="10dp"
+        app:secondHandWidth="2dp"
+        app:timeLineColor="@color/red" />
+
+    <TextView
+        android:id="@+id/tvClock1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/moscow"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/clockView1"
+        app:layout_constraintEnd_toStartOf="@+id/clockView1"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/clockView1" />
+
+    <com.example.customclock.ClockView
+        android:id="@+id/clockView2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        app:backgroundClockColor="@color/white"
+        app:clockRingWidth="6dp"
+        app:hourHandWidth="5dp"
+        app:hourLineLength="12dp"
+        app:hourLineWidth="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvClock2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/clockView4"
+        app:minuteHandWidth="3dp"
+        app:minuteLineLength="8dp"
+        app:minuteLineWidth="2dp"
+        app:numberSize="14dp"
+        app:secondHandColor="@color/green"
+        app:secondHandWidth="2dp" />
+
+    <TextView
+        android:id="@+id/tvClock2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/new_york"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/clockView2"
+        app:layout_constraintEnd_toStartOf="@+id/clockView2"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/clockView2" />
+
+    <com.example.customclock.ClockView
+        android:id="@+id/clockView3"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        app:backgroundClockColor="@color/black"
+        app:clockRingWidth="6dp"
+        app:hourHandColor="@color/white"
+        app:hourHandWidth="5dp"
+        app:hourLineLength="12dp"
+        app:hourLineWidth="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/clockView1"
+        app:layout_constraintStart_toStartOf="@+id/clockView1"
+        app:layout_constraintTop_toBottomOf="@+id/clockView1"
+        app:minuteHandColor="@color/white"
+        app:minuteHandWidth="3dp"
+        app:minuteLineLength="8dp"
+        app:minuteLineWidth="2dp"
+        app:numberSize="14dp"
+        app:secondHandColor="@color/blue"
+        app:secondHandWidth="2dp" />
+
+    <TextView
+        android:id="@+id/tvClock3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/tokyo"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/clockView3"
+
+        app:layout_constraintStart_toStartOf="@+id/tvClock1"
+        app:layout_constraintTop_toTopOf="@+id/clockView3" />
+
+    <com.example.customclock.ClockView
+        android:id="@+id/clockView4"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        app:backgroundClockColor="@color/dark_gray"
+        app:borderColor="@color/dark_gray"
+        app:clockRingWidth="6dp"
+        app:hourHandColor="@color/white"
+        app:hourHandWidth="5dp"
+        app:hourLineLength="12dp"
+        app:hourLineWidth="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/clockView2"
+        app:layout_constraintStart_toStartOf="@+id/clockView2"
+        app:layout_constraintTop_toBottomOf="@+id/clockView2"
+        app:minuteHandColor="@color/white"
+        app:minuteHandWidth="3dp"
+        app:minuteLineLength="8dp"
+        app:minuteLineWidth="2dp"
+        app:numberColor="@color/white"
+        app:numberSize="14dp"
+        app:secondHandColor="@color/yellow"
+        app:secondHandWidth="2dp"
+        app:timeLineColor="@color/yellow" />
+
+    <TextView
+        android:id="@+id/tvClock4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/berlin"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/clockView4"
+        app:layout_constraintStart_toStartOf="@+id/tvClock2"
+        app:layout_constraintTop_toTopOf="@+id/clockView4" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
